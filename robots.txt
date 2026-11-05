@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://true-beauty-makeover.web.app/sitemap.xml
+

@@ -1,0 +1,20 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Real Work Portfolio items - public read, write for active updates
+    match /real_work/{docId} {
+      allow read, write: if true;
+    }
+
+    // Customer Reviews
+    match /client_reviews/{docId} {
+      allow read, write: if true;
+    }
+
+    // Appointment bookings
+    match /appointments/{docId} {
+      allow read, write: if true;
+    }
+  }
+}

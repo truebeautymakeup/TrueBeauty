@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "true-beauty-makeover"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
-

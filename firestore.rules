@@ -7,6 +7,11 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // Special Offers & Discount Posters
+    match /special_offers/{docId} {
+      allow read, write: if true;
+    }
+
     // Customer Reviews
     match /client_reviews/{docId} {
       allow read, write: if true;

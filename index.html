@@ -231,6 +231,7 @@
         <a href="#glamMirrorSection" class="hover:text-rosegold-300 transition text-rosegold-300 font-semibold">✨ Glam
           Mirror</a>
         <a href="#beforeAfterSection" class="hover:text-rosegold-300 transition">Before/After</a>
+        <a href="#specialOffersSection" class="hover:text-amber-300 text-amber-200/90 font-semibold transition flex items-center gap-1"><span>🔥</span> Offers</a>
         <a href="#realWorkSection" class="hover:text-rosegold-300 transition">Real Work</a>
         <a href="#clientReviewsSection" class="hover:text-rosegold-300 transition">Reviews</a>
         <a href="#contactSection" class="hover:text-rosegold-300 transition">Contact</a>
@@ -280,6 +281,7 @@
         Mirror & Shade Matcher</a>
       <a href="#beforeAfterSection" class="mobile-nav-link block py-1.5 text-stone-200 hover:text-rosegold-300">Before /
         After Glam Slider</a>
+      <a href="#specialOffersSection" class="mobile-nav-link block py-1.5 text-amber-300 font-semibold flex items-center gap-1.5">🔥 Special Offers & Deals</a>
       <a href="#realWorkSection" class="mobile-nav-link block py-1.5 text-stone-200 hover:text-rosegold-300">Real Work
         Portfolio</a>
       <a href="#clientReviewsSection" class="mobile-nav-link block py-1.5 text-stone-200 hover:text-rosegold-300">Client
@@ -1138,6 +1140,38 @@
     </section>
 
     <!-- ==========================================
+         5A. SPECIAL OFFERS & SEASONAL PACKAGES SECTION
+         ========================================== -->
+    <section id="specialOffersSection" class="py-16 border-t border-white/10 bg-velvet/20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <span class="text-xs uppercase tracking-[0.3em] text-amber-400 font-semibold flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              Limited Time Deals • Exclusive Makeover Discounts
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-2">
+              Special Offers & <span class="gold-gradient-text">Festive Packages</span>
+            </h2>
+            <p class="text-stone-300 text-sm mt-1 max-w-2xl">
+              Grab exclusive luxury bridal discounts, seasonal festive makeovers, and combo beauty packages curated personally by True Beauty Makeover.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="#contactSection" class="px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-semibold text-white transition flex items-center gap-2">
+              💬 Enquire on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Special Offers Dynamic Grid (Populated by JS & Firestore) -->
+        <div id="specialOffersGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Rendered by renderSpecialOffers() -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
          5B. OWNER REAL WORK PORTFOLIO & CLOUDINARY / FIREBASE STUDIO
          ========================================== -->
     <section id="realWorkSection" class="py-16 border-t border-white/10 relative">
@@ -1157,11 +1191,10 @@
                 <span id="ownerStatusEmailBadge" class="text-xs font-mono text-rosegold-300">owner@truebeauty.com</span>
               </div>
               <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mt-2">
-                Owner Real Work & Cloud Manager
+                Owner Studio & Offers Manager
               </h3>
               <p class="text-xs text-stone-400 mt-0.5">
-                Upload real makeover pics via Cloudinary link or direct file, manage customer reviews, and configure
-                Firebase Auth.
+                Upload real makeover pics & special festive offers via Cloudinary + Firestore, manage reviews, and configure cloud.
               </p>
             </div>
             <div class="flex flex-wrap items-center gap-2.5">
@@ -1176,7 +1209,19 @@
             </div>
           </div>
 
-          <!-- Upload Real Work Photo Form -->
+          <!-- Studio Mode Switcher Tabs -->
+          <div class="flex items-center gap-2.5 border-b border-white/10 pb-4">
+            <button type="button" id="tabRealWorkBtn"
+              class="px-4 py-2 rounded-xl bg-rosegold-500 text-obsidian font-bold text-xs transition">
+              📸 Upload Real Work Photo
+            </button>
+            <button type="button" id="tabOfferBtn"
+              class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-stone-300 font-semibold text-xs transition">
+              🎁 Upload Special Offer Poster
+            </button>
+          </div>
+
+          <!-- 1. Upload Real Work Photo Form -->
           <form id="ownerAddWorkForm"
             class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end bg-obsidian/70 p-5 rounded-2xl border border-white/10">
             <div class="md:col-span-3">
@@ -1210,6 +1255,41 @@
               <button type="submit"
                 class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-rosegold-400 to-rosegold-600 text-obsidian font-bold text-xs shadow-lg shadow-rosegold-500/20 hover:brightness-110 transition">
                 + Publish Real Work Pic
+              </button>
+            </div>
+          </form>
+
+          <!-- 2. Upload Special Offer Form (Hidden by default, switched via tab) -->
+          <form id="ownerAddOfferForm"
+            class="hidden grid grid-cols-1 md:grid-cols-12 gap-4 items-end bg-obsidian/70 p-5 rounded-2xl border border-amber-400/30">
+            <div class="md:col-span-3">
+              <label for="offerTitleInput" class="block text-xs text-stone-300 mb-1.5">Offer Package Name *</label>
+              <input id="offerTitleInput" type="text" required placeholder="e.g. Karwa Chauth / Bridal Special"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-xs text-white focus:border-amber-400 focus:outline-none" />
+            </div>
+            <div class="md:col-span-2">
+              <label for="offerBadgeInput" class="block text-xs text-stone-300 mb-1.5">Discount Badge *</label>
+              <input id="offerBadgeInput" type="text" required placeholder="e.g. FLAT 25% OFF / COMBO"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-xs text-white focus:border-amber-400 focus:outline-none" />
+            </div>
+            <div class="md:col-span-2">
+              <label for="offerValidityInput" class="block text-xs text-stone-300 mb-1.5">Validity / Expiry *</label>
+              <input id="offerValidityInput" type="text" required placeholder="e.g. Valid till 30 Nov"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-xs text-white focus:border-amber-400 focus:outline-none" />
+            </div>
+            <div class="md:col-span-2">
+              <label for="offerImageUrlInput" class="block text-xs text-stone-300 mb-1.5">Image Link (Optional)</label>
+              <input id="offerImageUrlInput" type="url" placeholder="https://res.cloudinary.com/..."
+                class="w-full px-3.5 py-2.5 rounded-xl bg-obsidian border border-white/15 text-xs text-white focus:border-amber-400 focus:outline-none" />
+            </div>
+            <div class="md:col-span-3 flex flex-col gap-2">
+              <label for="offerFileInput" class="block text-[11px] text-amber-300 cursor-pointer hover:underline">
+                📁 Or Select Poster from Phone/PC
+                <input id="offerFileInput" type="file" accept="image/*" class="hidden" />
+              </label>
+              <button type="submit"
+                class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-rosegold-500 text-obsidian font-bold text-xs shadow-lg shadow-amber-500/20 hover:brightness-110 transition">
+                🎉 Publish Special Offer
               </button>
             </div>
           </form>
@@ -2546,7 +2626,28 @@
         console.warn("Firebase Init notice:", err);
       }
 
+      // Default Initial Special Offers
+      const DEFAULT_SPECIAL_OFFERS = [
+        {
+          id: 'offer-1',
+          title: 'Royal Bridal Signature Package — Flat 25% OFF',
+          badge: 'FLAT 25% OFF',
+          validity: 'Limited Time Wedding Season Offer',
+          image: SERVICES_DATA[0].image,
+          createdAt: Date.now()
+        },
+        {
+          id: 'offer-2',
+          title: 'Pre-Bridal Glow Facial & Mehndi Glam Combo',
+          badge: 'SPECIAL COMBO DEAL',
+          validity: 'Valid for Advance Bookings Only',
+          image: SERVICES_DATA[1].image,
+          createdAt: Date.now() - 60000
+        }
+      ];
+
       let realWorkItems = loadJsonStore('tbm_real_work_v1', DEFAULT_REAL_WORK);
+      let specialOffers = loadJsonStore('tbm_special_offers_v1', DEFAULT_SPECIAL_OFFERS);
       let clientReviews = loadJsonStore('tbm_client_reviews_v1', DEFAULT_CLIENT_REVIEWS);
       let currentWorkFilter = 'all';
       let isOwnerAuthenticated = loadJsonStore('tbm_owner_auth_v1', false);
@@ -2581,6 +2682,7 @@
             }
           }
           renderRealWorkPortfolio();
+          renderSpecialOffers();
           renderCustomerReviews();
         });
       }
@@ -2588,6 +2690,7 @@
       // Live Firestore Database Sync (Real-time updates for all visitors)
       if (db) {
         try {
+          // 1. Sync Real Work Portfolio
           db.collection('real_work')
             .onSnapshot((snapshot) => {
               if (snapshot && !snapshot.empty) {
@@ -2604,6 +2707,24 @@
               console.warn("Firestore real_work listener notice:", err);
             });
 
+          // 2. Sync Special Offers & Deals
+          db.collection('special_offers')
+            .onSnapshot((snapshot) => {
+              if (snapshot && !snapshot.empty) {
+                const cloudOffers = [];
+                snapshot.forEach((doc) => {
+                  cloudOffers.push({ id: doc.id, ...doc.data() });
+                });
+                cloudOffers.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+                specialOffers = cloudOffers;
+                saveJsonStore('tbm_special_offers_v1', specialOffers);
+                renderSpecialOffers();
+              }
+            }, (err) => {
+              console.warn("Firestore special_offers listener notice:", err);
+            });
+
+          // 3. Sync Customer Reviews
           db.collection('client_reviews')
             .onSnapshot((snapshot) => {
               if (snapshot && !snapshot.empty) {
@@ -2625,6 +2746,7 @@
       }
 
       let pendingUploadedFileDataUrl = '';
+      let pendingOfferFileDataUrl = '';
 
       function renderRealWorkPortfolio() {
         const grid = document.getElementById('realWorkGrid');
@@ -2673,6 +2795,63 @@
               <button type="button" data-preview-work="${item.id}" class="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-rosegold-500 hover:text-obsidian text-xs text-rosegold-300 transition">
                 🔍 View
               </button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function renderSpecialOffers() {
+        const grid = document.getElementById('specialOffersGrid');
+        if (!grid) return;
+
+        if (!specialOffers || specialOffers.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full p-8 text-center glass-card rounded-2xl border border-white/10 space-y-2">
+              <p class="text-stone-300 text-sm">✨ No active special offers at this moment.</p>
+              <p class="text-xs text-stone-500">Check back soon for upcoming bridal discounts & festive packages!</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = specialOffers.map(offer => `
+          <div class="glass-card rounded-3xl overflow-hidden border border-rosegold-400/30 group relative flex flex-col justify-between hover:border-amber-400/50 transition duration-300 shadow-xl">
+            ${isOwnerAuthenticated ? `
+              <button
+                type="button"
+                data-delete-offer="${offer.id}"
+                class="absolute top-3 right-3 z-30 px-3 py-1 rounded-full bg-red-600/95 hover:bg-red-500 text-white text-[11px] font-bold shadow-2xl transition"
+              >
+                ✕ Delete Offer
+              </button>
+            ` : ''}
+
+            <div class="aspect-[16/10] overflow-hidden bg-obsidian relative cursor-pointer" data-preview-offer="${offer.id}">
+              <span class="absolute top-3 left-3 z-20 px-3 py-1 rounded-full bg-gradient-to-r from-amber-400 to-rosegold-500 text-obsidian text-xs font-extrabold uppercase tracking-wider shadow-lg">
+                ${offer.badge || 'SPECIAL DEAL'}
+              </span>
+              <img src="${offer.image}" alt="${offer.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-obsidian/95 via-obsidian/25 to-transparent"></div>
+              <div class="absolute bottom-3 left-4 right-4">
+                <span class="px-2.5 py-1 rounded-md bg-black/75 backdrop-blur text-[11px] text-amber-300 font-mono font-medium">
+                  ⏳ ${offer.validity || 'Limited Time'}
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 class="font-display text-xl font-bold text-white group-hover:text-amber-200 transition">
+                  ${offer.title}
+                </h3>
+              </div>
+              <a
+                href="#contactSection"
+                data-claim-offer="${offer.title}"
+                class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-rosegold-400 to-rosegold-600 hover:from-amber-400 hover:to-rosegold-500 text-obsidian font-bold text-xs uppercase tracking-wider text-center shadow-lg transition"
+              >
+                🎁 Claim Offer & Book Now
+              </a>
             </div>
           </div>
         `).join('');
@@ -2774,6 +2953,7 @@
                   saveJsonStore('tbm_owner_auth_v1', true);
                   closeModal();
                   renderRealWorkPortfolio();
+                  renderSpecialOffers();
                   renderCustomerReviews();
                   document.getElementById('realWorkSection').scrollIntoView({ behavior: 'smooth' });
                   showToast(`Welcome Owner (${user.email})! Studio Unlocked.`, '🔓');
@@ -2828,6 +3008,7 @@
                 saveJsonStore('tbm_owner_auth_v1', true);
                 closeModal();
                 renderRealWorkPortfolio();
+                renderSpecialOffers();
                 renderCustomerReviews();
                 document.getElementById('realWorkSection').scrollIntoView({ behavior: 'smooth' });
                 showToast('Owner Studio Unlocked via Firebase Auth!', '🔓');
@@ -2842,6 +3023,7 @@
                   saveJsonStore('tbm_owner_auth_v1', true);
                   closeModal();
                   renderRealWorkPortfolio();
+                  renderSpecialOffers();
                   renderCustomerReviews();
                   document.getElementById('realWorkSection').scrollIntoView({ behavior: 'smooth' });
                   showToast('Owner Studio Unlocked!', '🔓');
@@ -2863,6 +3045,7 @@
               saveJsonStore('tbm_owner_auth_v1', true);
               closeModal();
               renderRealWorkPortfolio();
+              renderSpecialOffers();
               renderCustomerReviews();
               document.getElementById('realWorkSection').scrollIntoView({ behavior: 'smooth' });
               showToast('Owner Studio Unlocked!', '🔓');
@@ -3028,6 +3211,7 @@
           isOwnerAuthenticated = false;
           saveJsonStore('tbm_owner_auth_v1', false);
           renderRealWorkPortfolio();
+          renderSpecialOffers();
           renderCustomerReviews();
           showToast('Owner Studio Locked & Logged Out.', '🔒');
         });
@@ -3142,6 +3326,131 @@
         });
       }
 
+      // Studio Tab Switcher (Real Work vs Special Offers)
+      const tabRealWorkBtn = document.getElementById('tabRealWorkBtn');
+      const tabOfferBtn = document.getElementById('tabOfferBtn');
+      const formRealWork = document.getElementById('ownerAddWorkForm');
+      const formOffer = document.getElementById('ownerAddOfferForm');
+
+      if (tabRealWorkBtn && tabOfferBtn) {
+        tabRealWorkBtn.addEventListener('click', () => {
+          tabRealWorkBtn.className = 'px-4 py-2 rounded-xl bg-rosegold-500 text-obsidian font-bold text-xs transition';
+          tabOfferBtn.className = 'px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-stone-300 font-semibold text-xs transition';
+          if (formRealWork) formRealWork.classList.remove('hidden');
+          if (formOffer) formOffer.classList.add('hidden');
+        });
+
+        tabOfferBtn.addEventListener('click', () => {
+          tabOfferBtn.className = 'px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-rosegold-500 text-obsidian font-bold text-xs transition';
+          tabRealWorkBtn.className = 'px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-stone-300 font-semibold text-xs transition';
+          if (formOffer) formOffer.classList.remove('hidden');
+          if (formRealWork) formRealWork.classList.add('hidden');
+        });
+      }
+
+      const offerFileInput = document.getElementById('offerFileInput');
+      if (offerFileInput) {
+        offerFileInput.addEventListener('change', () => {
+          if (offerFileInput.files && offerFileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              pendingOfferFileDataUrl = ev.target.result;
+              showToast(`Selected offer poster: ${offerFileInput.files[0].name}`, '📸');
+            };
+            reader.readAsDataURL(offerFileInput.files[0]);
+          }
+        });
+      }
+
+      const addOfferForm = document.getElementById('ownerAddOfferForm');
+      if (addOfferForm) {
+        addOfferForm.addEventListener('submit', async (ev) => {
+          ev.preventDefault();
+          const title = document.getElementById('offerTitleInput').value.trim();
+          const badge = document.getElementById('offerBadgeInput').value.trim() || 'SPECIAL OFFER';
+          const validity = document.getElementById('offerValidityInput').value.trim() || 'Limited Time';
+          const urlVal = document.getElementById('offerImageUrlInput').value.trim();
+          let finalImg = urlVal;
+
+          const submitBtn = addOfferForm.querySelector('button[type="submit"]');
+          const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+
+          if (!finalImg && offerFileInput && offerFileInput.files && offerFileInput.files[0]) {
+            const selectedFile = offerFileInput.files[0];
+            const cloudName = cloudSettings.cloudinaryCloudName || 'uhliokjz';
+            const uploadPreset = cloudSettings.cloudinaryUploadPreset;
+
+            if (cloudName && uploadPreset) {
+              try {
+                if (submitBtn) {
+                  submitBtn.disabled = true;
+                  submitBtn.innerHTML = `<span>⏳</span><span>Uploading to Cloudinary...</span>`;
+                }
+                const fd = new FormData();
+                fd.append('file', selectedFile);
+                fd.append('upload_preset', uploadPreset);
+
+                const cRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                  method: 'POST',
+                  body: fd
+                });
+                const cJson = await cRes.json();
+                if (cJson.secure_url) {
+                  finalImg = cJson.secure_url;
+                  showToast('Offer poster uploaded to Cloudinary!', '☁️');
+                } else {
+                  finalImg = pendingOfferFileDataUrl || DEFAULT_SPECIAL_OFFERS[0].image;
+                }
+              } catch (err) {
+                console.warn('Cloudinary offer upload error:', err);
+                finalImg = pendingOfferFileDataUrl || DEFAULT_SPECIAL_OFFERS[0].image;
+              } finally {
+                if (submitBtn) {
+                  submitBtn.disabled = false;
+                  submitBtn.innerHTML = originalBtnHtml;
+                }
+              }
+            } else {
+              finalImg = pendingOfferFileDataUrl || DEFAULT_SPECIAL_OFFERS[0].image;
+            }
+          } else if (!finalImg) {
+            finalImg = pendingOfferFileDataUrl || DEFAULT_SPECIAL_OFFERS[0].image;
+          }
+
+          const offerDocId = 'offer-' + Date.now();
+          const newOfferDoc = {
+            id: offerDocId,
+            title,
+            badge,
+            validity,
+            image: finalImg,
+            createdAt: Date.now()
+          };
+
+          specialOffers.unshift(newOfferDoc);
+          pendingOfferFileDataUrl = '';
+          if (offerFileInput) offerFileInput.value = '';
+          saveJsonStore('tbm_special_offers_v1', specialOffers);
+          addOfferForm.reset();
+          renderSpecialOffers();
+
+          if (db) {
+            db.collection('special_offers').doc(offerDocId).set(newOfferDoc)
+              .then(() => {
+                showToast('Special offer published live to Cloud Firestore!', '🔥');
+              })
+              .catch((fsErr) => {
+                console.warn('Firestore offer publish notice:', fsErr);
+                showToast('Special offer published!', '🎉');
+              });
+          } else {
+            showToast('Special offer published!', '🎉');
+          }
+
+          document.getElementById('specialOffersSection').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
       document.querySelectorAll('.work-filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           currentWorkFilter = btn.getAttribute('data-work-filter') || 'all';
@@ -3188,6 +3497,52 @@
             `);
           }
           return;
+        }
+
+        const delOfferBtn = e.target.closest('[data-delete-offer]');
+        if (delOfferBtn && isOwnerAuthenticated) {
+          const oId = delOfferBtn.getAttribute('data-delete-offer');
+          specialOffers = specialOffers.filter(item => item.id !== oId);
+          saveJsonStore('tbm_special_offers_v1', specialOffers);
+          renderSpecialOffers();
+          if (db) {
+            db.collection('special_offers').doc(oId).delete().catch(console.warn);
+          }
+          showToast('Special offer removed', '🗑');
+          return;
+        }
+
+        const previewOfferEl = e.target.closest('[data-preview-offer]');
+        if (previewOfferEl) {
+          const oId = previewOfferEl.getAttribute('data-preview-offer');
+          const item = specialOffers.find(x => x.id === oId);
+          if (item) {
+            openModal(`
+              <div class="space-y-4 text-left">
+                <div class="rounded-2xl overflow-hidden aspect-[16/10] bg-obsidian border border-rosegold-400/30">
+                  <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" />
+                </div>
+                <div class="flex items-center justify-between gap-2">
+                  <div>
+                    <span class="text-xs uppercase tracking-widest text-amber-400 font-bold">${item.badge}</span>
+                    <h3 class="font-display text-2xl font-bold text-white mt-0.5">${item.title}</h3>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-white/10 text-xs text-amber-300 font-mono">⏳ ${item.validity}</span>
+                </div>
+              </div>
+            `);
+          }
+          return;
+        }
+
+        const claimOfferBtn = e.target.closest('[data-claim-offer]');
+        if (claimOfferBtn) {
+          const offerTitle = claimOfferBtn.getAttribute('data-claim-offer');
+          const notesInput = document.getElementById('bookingNotes');
+          if (notesInput) {
+            notesInput.value = `Applied Offer: ${offerTitle}`;
+          }
+          showToast(`Offer selected: "${offerTitle}"! Ready to book.`, '🎁');
         }
 
         const delRevBtn = e.target.closest('[data-delete-review]');
@@ -3444,6 +3799,7 @@
       updateGlamMirrorUI();
 
       renderRealWorkPortfolio();
+      renderSpecialOffers();
       renderCustomerReviews();
     });
   </script>
